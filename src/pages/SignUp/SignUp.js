@@ -1,17 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { goToBooksFeed, goToSignin } from '../../routes/Cordinator';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignInImage from '../../images/sign-in-image.jpg'
+import { auth } from '../../services/firebase';
 
 function SignUp() {
   
   const history = useHistory();
   const classes = useStyles();
 
-  // const [form, setForm] = useState({username: '', email: '', password: ''})
+  const [form, setForm] = useState({username: '', email: '', password: ''})
+
+  const handleSignOutForm = (e) => {
+    const { value, name } = e.target
+    setForm({...form, [name] : value})
+  }
+
+  const createNewUser = (e) => {
+    e.preventDefault()
+
+    const element = document.getElementById("signUp_form")
+    const validation = element.checkValidity()
+    element.reportValidity()
+    
+    if(validation){
+      auth
+      .createUserWithEmailAndPassword(form.email, form.password)
+      .then((authUser) => {
+        return authUser.user.updateProfile({displayName : form.username})
+      })
+      .catch((err) => {
+        return alert(err.message)
+      })
+      
+      goToBooksFeed(history)
+
+    } else{
+      alert("Usuário ou senha incorretos!")
+    }
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -22,29 +52,30 @@ function SignUp() {
           <Typography variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} id="signUp_form">
             <TextField
+              onChange={handleSignOutForm}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="username"
               label="Name"
               name="username"
               autoComplete="username"
               autoFocus
             />
             <TextField
+              onChange={handleSignOutForm}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email"
               name="email"
               autoComplete="email"
             />
             <TextField
+              onChange={handleSignOutForm}
               variant="outlined"
               margin="normal"
               required
@@ -52,21 +83,21 @@ function SignUp() {
               name="password"
               label="Password"
               type="password"
-              id="password"
             />
             <Button
               type="submit"
               fullWidth
+              onChange={handleSignOutForm}
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => goToBooksFeed(history)}
+              onClick={createNewUser}
             >
               Sign Up
             </Button>
             <Grid container>
               <Grid item>
-                <Button                    
+                <Button             
                     variant="text"
                     color="secondary" 
                     onClick={() => goToSignin(history)}

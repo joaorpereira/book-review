@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { goToSignUp } from '../../routes/Cordinator';
+import { goToBooksFeed, goToSignUp } from '../../routes/Cordinator';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignInImage from '../../images/sign-in-image.jpg'
+import { auth } from '../../services/firebase';
 
 function SignIn() {
   
@@ -18,23 +19,25 @@ function SignIn() {
     setForm({...form, [name] : value})
   }
 
-  const submitForm = (e) => {
+  const signIn = (e) => {
     e.preventDefault()
 
-    const element = document.getElementById("signin_form")
+    const element = document.getElementById("signIn_form")
     const validation = element.checkValidity()
     element.reportValidity()
 
     if(validation){
-      console.log(form)
+      auth
+      .signInWithEmailAndPassword(form.email, form.password)
+      .catch((err) => {
+        return alert(err.message)
+      })      
+      goToBooksFeed(history)
 
     } else{
-      alert("Usuário ou senha incorretos!")
+      alert("User or password incorrect!")
     }
-
-
-
-  }
+  } 
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -45,7 +48,7 @@ function SignIn() {
           <Typography variant="h5">
             Sign In
           </Typography>
-          <form className={classes.form} id="signin_form">
+          <form className={classes.form} id="signIn_form">
             <TextField
               value={form.email}
               onChange={handleChange}
@@ -55,7 +58,6 @@ function SignIn() {
               fullWidth
               name="email"
               label="Email"
-              type="text"
               autoFocus
             />
             <TextField
@@ -75,7 +77,7 @@ function SignIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={submitForm}
+              onClick={signIn}
             >
               Sign In
             </Button>
