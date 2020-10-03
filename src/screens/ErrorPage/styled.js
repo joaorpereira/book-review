@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,12 +14,14 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img`
-    max-width: 550px;
+    max-width: 500px;
     align-items: center;
     justify-content: center;
+    margin-top: 70px;
 
     @media (max-width: 768px) {
-        max-width: 320px;
-        transform: translateY(50%);
+        max-width: 275px;
+        margin-top: 0px;
+        transform: translateY(25%);
     }
 `;
