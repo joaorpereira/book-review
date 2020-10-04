@@ -28,7 +28,7 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Navbar user={user}/>
-          <Router/>
+          <Router user={user}/>
         </BrowserRouter>
       </ThemeContext>
   );

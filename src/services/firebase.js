@@ -1,14 +1,14 @@
 import firebase from 'firebase';
 
 const firebaseApp = {
-    apiKey: "AIzaSyBhjerVhKAtOPiJA9m3CGm0V8wCYxKezD0",
-    authDomain: "book-reviews-63de0.firebaseapp.com",
-    databaseURL: "https://book-reviews-63de0.firebaseio.com",
-    projectId: "book-reviews-63de0",
-    storageBucket: "book-reviews-63de0.appspot.com",
-    messagingSenderId: "323321599482",
-    appId: "1:323321599482:web:19c122dfbae632a47bc043"
-  };
+  apiKey: "AIzaSyCgL0ZHTQpYP0SU9iYzQ6FWmcBbf-FtWXQ",
+  authDomain: "bookreview-56c7d.firebaseapp.com",
+  databaseURL: "https://bookreview-56c7d.firebaseio.com",
+  projectId: "bookreview-56c7d",
+  storageBucket: "bookreview-56c7d.appspot.com",
+  messagingSenderId: "947076511336",
+  appId: "1:947076511336:web:06e8adf6a85274244c6ddd"
+};
 
 firebase.initializeApp(firebaseApp)
 

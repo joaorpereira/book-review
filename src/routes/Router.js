@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { SignIn, SignUp, CreateBookReview, BooksFeed, BookReview, ErrorPage} from '../pages/index'
 
-const Router = () => {
+const Router = ({user}) => {
     return (
         <Switch>
             <Route exact path={'/signin'}>
@@ -12,7 +12,7 @@ const Router = () => {
                 <SignUp/>
             </Route>
             <Route exact path={'/create'}>
-                <CreateBookReview/>
+                {user?.displayName ? <CreateBookReview username={user.displayName}/> : <h3>You need to be logged to upload images</h3>}
             </Route>
             <Route exact path={['/books', '/']}>
                 <BooksFeed/>

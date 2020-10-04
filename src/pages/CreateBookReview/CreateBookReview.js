@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { goToBooksFeed } from '../../routes/Cordinator';
+// import { useHistory } from 'react-router-dom';
+// import { goToBooksFeed } from '../../routes/Cordinator';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
+import {db, storage} from '../../services/firebase'
+import firebase from 'firebase'
 
-function CreateBookReview() {
+function CreateBookReview({username}) {
   
-    const history = useHistory();
+    // const history = useHistory();
     const classes = useStyles();
+    console.log(username)
 
-    const [form, setForm] = useState({title: ''})
+    const [form, setForm] = useState({title: '', content: '',})
     const [progress, setProgress] = useState(0)
     const [image, setImage] = useState("")
+
+    const handleChange = (e) => {
+        const { value, name } = e.target
+        setForm({...form, [name] : value})
+    }
 
     const handleImageChange = (e) => {
         if(e.target.files[0]){
@@ -20,9 +28,41 @@ function CreateBookReview() {
         }
     }
 
-    const handleChange = (e) => {
-        const { value, name } = e.target
-        setForm({...form, [name] : value})
+    const handleFileUpload = (e) => {
+        e.preventDefault()
+        const uploadTask = storage.ref(`images/${image.name}`).put(image)
+        console.log("oi")
+        uploadTask.on(
+            "state_changed", 
+            (snapshot) => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                )
+                setProgress(progress)
+            },
+            (error) => {
+                console.log(error)
+                alert(error.message)
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then((url) => {
+                        db.collection("posts").add({
+                            content: form.content,
+                            imageUrl: url,
+                            title: form.title,
+                            username: username,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        })
+                        setProgress(0)
+                        setForm({title: '', content: '',})
+                        setImage("")
+                    })
+            }    
+        )
     }
 
   return (
@@ -46,7 +86,19 @@ function CreateBookReview() {
               autoFocus
             />
             <TextField
-              value={image}
+              value={form.content}
+              onChange={handleChange}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="content"
+              label="Review"
+              multiline
+              rows={2}
+              rowsMax={4}
+            />
+            <TextField
               onChange={handleImageChange}
               variant="outlined"
               margin="normal"
@@ -56,21 +108,19 @@ function CreateBookReview() {
               label="Image file"
               type="file"    
               InputLabelProps={{shrink: true}}
-            />
+            />     
             <LinearProgress 
-                margin="normal"
-                fullWidth
                 variant="determinate"
-                value={progress}/>            
+                value={progress}/>  
             <Button
-              className={classes.submit}
-              type="submit"
+              className={classes.submit}     
               variant="contained"
               color="primary"
               size="large"
-            //   onClick={handleUpload}
+              type="submit"
+              onClick={handleFileUpload}
             >
-              Submit
+              Create
             </Button>
           </form>
         </div>
@@ -100,7 +150,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection:'column',
-      width: '450px',
       maxWidth: '450px',
       marginTop: theme.spacing(1),
     },
