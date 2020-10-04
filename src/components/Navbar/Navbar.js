@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import {AppBar, Toolbar, Button, Typography } from '@material-ui/core';
-import { goToBooksFeed, goToSignin, goToSignUp } from '../../routes/Cordinator';
+import { makeStyles, AppBar, Toolbar, Button, Typography } from '@material-ui/core';
+import { goToBooksFeed, goToSignIn, goToSignUp, goToCreateBookReview } from '../../routes/Cordinator';
 import bookReviewLogo from '../../images/logo2.png'
 import { auth } from '../../services/firebase';
+import Buttons from './Buttons/Buttons';
 
 function ButtonAppBar({user}) {
 
@@ -12,9 +12,8 @@ function ButtonAppBar({user}) {
   const history = useHistory();
 
   const logout = () => {
-
     auth.signOut()
-    goToSignin(history)
+    goToSignIn(history)
   }
 
   return (
@@ -27,16 +26,17 @@ function ButtonAppBar({user}) {
         </Toolbar>
         <Toolbar>
             { user ? (
-                 <Button color={'inherit'} onClick={() => null}>
-                    <Typography className={classes.buttonText} onClick={logout}>Logout</Typography>    
-                 </Button> ) : 
+            <>
+                 <Buttons text={"Feed"} page={goToBooksFeed}/>
+                 <Buttons text={"Create"} page={goToCreateBookReview}/>
+                 <Button className={classes.button} color={'secondary'} onClick={logout} variant={'contained'} size ={'small'}>
+                    <Typography className={classes.buttonText}>Logout</Typography>    
+                 </Button> 
+            </>                 
+            ) :            
             (<> 
-                <Button className={classes.button} color={'secondary'} variant={'outlined'} size ={'small'} onClick={() => null}>
-                    <Typography className={classes.buttonText} onClick={() => goToSignin(history)}>Sign In</Typography>    
-                </Button>
-                <Button color={'secondary'} variant={'outlined'} size ={'small'} onClick={() => null}>
-                    <Typography className={classes.buttonText} onClick={() => goToSignUp(history)}>Sign Up</Typography>    
-                </Button> 
+                <Buttons text={"Sign In"} page={goToSignIn} color={'secondary'} variant={'outlined'} size ={'small'} />
+                <Buttons text={"Sign Up"} page={goToSignUp} color={'secondary'} variant={'outlined'} size ={'small'} />
             </>)}
         </Toolbar>  
     </AppBar>
@@ -54,14 +54,15 @@ const useStyles = makeStyles({
         height: "10vh",
     },
     logo: {
-        color: 'inherit',
+        color: 'white',
     },
     button: {
-        margin: '20px',
+        marginLeft: '10px',
     },
     buttonText: {
-        fontSize: '15px',
+        fontSize: '16px',
         letterSpacing: '3px',
+        color: 'white',
         textTransform:'capitalize',
         "@media(max-width: 800px)" : {
             letterSpacing: '1px',

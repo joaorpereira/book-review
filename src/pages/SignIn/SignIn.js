@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { goToBooksFeed, goToSignUp } from '../../routes/Cordinator';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignInImage from '../../images/sign-in-image.jpg'
 import { auth } from '../../services/firebase';

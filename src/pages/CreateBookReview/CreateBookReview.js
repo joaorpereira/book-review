@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import { goToBooksFeed } from '../../routes/Cordinator';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
-import {db, storage} from '../../services/firebase'
+import { useHistory } from 'react-router-dom';
 import firebase from 'firebase'
+import {db, storage} from '../../services/firebase'
+import { goToBooksFeed } from '../../routes/Cordinator';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { makeStyles, Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
+
 
 function CreateBookReview({username}) {
-  
-    // const history = useHistory();
+    const history = useHistory();
     const classes = useStyles();
     console.log(username)
 
@@ -60,6 +59,7 @@ function CreateBookReview({username}) {
                         setProgress(0)
                         setForm({title: '', content: '',})
                         setImage("")
+                        goToBooksFeed(history)
                     })
             }    
         )

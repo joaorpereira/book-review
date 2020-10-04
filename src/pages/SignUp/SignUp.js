@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { goToBooksFeed, goToSignin } from '../../routes/Cordinator';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
+import { goToBooksFeed, goToSignIn } from '../../routes/Cordinator';
+import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignInImage from '../../images/sign-in-image.jpg'
 import { auth } from '../../services/firebase';
@@ -100,7 +99,7 @@ function SignUp() {
                 <Button             
                     variant="text"
                     color="secondary" 
-                    onClick={() => goToSignin(history)}
+                    onClick={() => goToSignIn(history)}
                     >
                 Do you have an account? Sign In
                 </Button>
