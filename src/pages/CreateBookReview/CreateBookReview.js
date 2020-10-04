@@ -10,7 +10,6 @@ import { makeStyles, Button, CssBaseline, TextField, Paper, Grid, Typography, Li
 function CreateBookReview({username}) {
     const history = useHistory();
     const classes = useStyles();
-    console.log(username)
 
     const [form, setForm] = useState({title: '', content: '',})
     const [progress, setProgress] = useState(0)
@@ -30,7 +29,6 @@ function CreateBookReview({username}) {
     const handleFileUpload = (e) => {
         e.preventDefault()
         const uploadTask = storage.ref(`images/${image.name}`).put(image)
-        console.log("oi")
         uploadTask.on(
             "state_changed", 
             (snapshot) => {
@@ -44,23 +42,23 @@ function CreateBookReview({username}) {
                 alert(error.message)
             },
             () => {
-                storage
-                    .ref("images")
-                    .child(image.name)
-                    .getDownloadURL()
-                    .then((url) => {
-                        db.collection("posts").add({
-                            content: form.content,
-                            imageUrl: url,
-                            title: form.title,
-                            username: username,
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        })
-                        setProgress(0)
-                        setForm({title: '', content: '',})
-                        setImage("")
-                        goToBooksFeed(history)
+              storage
+                .ref("images")
+                .child(image.name)
+                .getDownloadURL()
+                .then((url) => {
+                    db.collection("posts").add({
+                        content: form.content,
+                        imageUrl: url,
+                        title: form.title,
+                        username: username,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     })
+                    setProgress(0)
+                    setForm({title: '', content: '',})
+                    setImage("")
+                    goToBooksFeed(history)
+                })
             }    
         )
     }
