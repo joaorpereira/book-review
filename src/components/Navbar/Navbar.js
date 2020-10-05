@@ -50,7 +50,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "100%",
+        maxWidth: "100%",
         height: "10vh",
     },
     logo: {

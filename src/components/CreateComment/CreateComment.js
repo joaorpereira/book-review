@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, makeStyles, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { goToBooksFeed } from '../../routes/Cordinator';
+import AddIcon from '@material-ui/icons/Add';
 import firebase from 'firebase'
 import { db } from '../../services/firebase'
-import AddIcon from '@material-ui/icons/Add';
 
-function CommentsSection({user, item}) {
+function CreateComment({user, item}) {
 
     const { id } = item
-
-    console.log(id)
     
     const history = useHistory();
     const classes = useStyles();
 
     const [form, setForm] = useState({comment: ''})
-    const [comments, setComments] = useState([])
-
+ 
     const handleChange = (e) => {
         const { value, name } = e.target
         setForm({...form, [name] : value})
@@ -42,38 +39,14 @@ function CommentsSection({user, item}) {
             goToBooksFeed(history)
 
         } else{
-            alert("Usuário ou senha incorretos!")
+            alert("User or password incorrect!")
         }
     }
-
-    useEffect(() => {
-        if(id){
-            db.collection("posts")
-              .doc(id).collection("comments")
-              .orderBy("timestamp", "asc")
-              .onSnapshot((snapshot) => {
-                  setComments(snapshot.docs.map((doc) => doc.data() ))
-              })
-        }
-    },[id])
     
     return (
-        <div>
-            {comments.length > 0 ? (
-                <div>
-                    {comments.map(comment => {
-                        return (
-                            <div key={comment.id}>
-                                <h3>{user.displayName}</h3><p>{comment}</p>
-                            </div>
-                        )
-                    })}
-                </div>
-            ) :  <p>Don't have comments</p>}
-            
+        <div>           
             {user ? 
-                ( <div>
-                    <form className={classes.form} id="postComment_form">
+                ( <form className={classes.form} id="postComment_form">
                         <TextField
                             value={form.comment}
                             onChange={handleChange}
@@ -87,15 +60,14 @@ function CommentsSection({user, item}) {
                             onClick={postComment}
                             startIcon={<AddIcon style={{ fontSize: 30 }}/>}
                         />
-                    </form>              
-                  </div>
+                  </form>              
                 ):  <p>Log in to post a comment</p>
             }
         </div>
     )
 }
 
-export default CommentsSection
+export default CreateComment
 
 const useStyles = makeStyles({
     form: {
