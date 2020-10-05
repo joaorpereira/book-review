@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Divider, makeStyles, Typography} from '@material-ui/core';
+import { Box, Divider, makeStyles, Typography} from '@material-ui/core';
 import { db } from '../../services/firebase'
+import { regularColor } from '../../constants/colors';
 
 function BookCard({item}) {
 
@@ -22,23 +23,24 @@ function BookCard({item}) {
     },[id])
 
     return (
-      <div className={classes.container} >
+      <Box className={classes.container} >
         <Divider light />
         {(comments.length !== 0) ? (
-            <div style={{margin: '0px', padding: '0px'}}>
+            <Box style={{margin: '0px', padding: '0px'}}>
                 {comments.map(comment => {
                     return (
-                        <div>
+                        <Box>
                             <Typography variant="body2" className={classes.comments}>
                               <strong>{comment.username}</strong>
                               {": "}{comment.text}
                             </Typography>
-                        </div>
+                            <Divider variant="middle" />
+                        </Box>
                     )
                 })}
-            </div>
-        ) :  <p className={classes.comments} style={{color: "grey"}}>No comments</p>}            
-      </div>
+            </Box>
+        ) :  <Typography className={classes.comments} variant="body2" style={{color: "grey"}}>No comments</Typography>}            
+      </Box>
     )
 }
 
@@ -50,12 +52,9 @@ const useStyles = makeStyles({
     minHeight: '50px',
   },
   comments:{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     margin: '0px 0px 0px 16px',
-    paddingTop: '5px',
+    paddingTop: '10px',
     textTransform: 'capitalize',
-    color: "#1b262c",
+    color: regularColor,
   },
 });

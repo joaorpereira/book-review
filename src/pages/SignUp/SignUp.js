@@ -47,7 +47,7 @@ function SignUp() {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+        <Box className={classes.paper}>
           <Typography variant="h5">
             Sign Up
           </Typography>
@@ -109,7 +109,7 @@ function SignUp() {
               <Copyright />
             </Box>
           </form>
-        </div>
+        </Box>
       </Grid>
     </Grid>
   );

@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
 import BooksPosts from '../BookPosts/BookPosts'
 import Comments from '../Comments/Comments'
-import CreateComment from '../CreateComment/CreateComment'
 import clsx from 'clsx';
-import { makeStyles, Card,CardContent, Collapse, IconButton, Grid} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles, Card, IconButton, Grid, Box } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import AddCommentIcon from '@material-ui/icons/AddComment'
+import AddCommentOutlinedIcon from '@material-ui/icons/AddCommentOutlined'
+import ShowReviews from './ShowReviews'
+import ShowComments from './ShowComments'
 
 function BookCard({item, user}) {
 
-  const { id } = item
+  const { id, post } = item
 
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
+  const [addComment, setAddComment] = useState(false);
+  const [showReview, setShowReview] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandComment = () => {
+    setAddComment(!addComment);
+  };
+  const handleExpandReview = () => {
+    setShowReview(!showReview);
   };
 
   return (
@@ -22,19 +29,26 @@ function BookCard({item, user}) {
       <Card key={id} className={classes.root}>
           <BooksPosts item={item} user={user}/>
           <Comments item={item}/>
-          <IconButton 
-            style={{display:'flex', justifyContent:'right'}}
-            className={clsx(classes.expand, {[classes.expandOpen]: expanded,})}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-          >
-            <ExpandMoreIcon />
-          </IconButton>                
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent style={{display:'flex', justifyContent:'center'}}>
-                  <CreateComment item={item} user={user}/>
-              </CardContent>
-          </Collapse>
+          <Box style={{margin: '0', paddding: '0', display:'flex', justifyContent:'space-between'}}>            
+            <IconButton
+              style={{margin: '0', paddding: '0', display:'flex', justifyContent:'flex-start'}}
+              className={clsx(classes.expand, {[classes.expandOpen]: showReview,})}
+              onClick={handleExpandReview}
+              aria-expanded={showReview}
+            > 
+              <ExpandMoreIcon />       
+            </IconButton>          
+            <IconButton
+              style={{margin: '0', paddding: '0', display:'flex', justifyContent:'flex-end'}}
+              className={clsx(classes.expand)}
+              onClick={handleExpandComment}
+              aria-expanded={addComment}
+            > 
+              {addComment ? <AddCommentIcon /> : <AddCommentOutlinedIcon />}            
+            </IconButton>
+          </Box>
+          <ShowComments addComment={addComment} item={item} user={user}/>
+          <ShowReviews showReview={showReview} post={post}/>
       </Card>            
     </Grid>
   )
@@ -45,7 +59,7 @@ export default BookCard
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
-    maxHeight: 600,
+    minHeight: 510,
     margin: '0 auto',
   },
   expand: {
@@ -59,3 +73,5 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
 }));
+
+
