@@ -14,14 +14,14 @@ const Router = ({user, posts}) => {
             <Route exact path={'/create'}>
                 {user?.displayName ? 
                     <CreateBookReview username={user.displayName}/> : 
-                    <h3 style={{color: "grey", textAlign:'center'}}>Sign in to upload images</h3>
+                    <h3 style={{color: "grey", textAlign:'center'}}>Sign in to upload a book review</h3>
                 }
             </Route>
             <Route exact path={['/books', '/']}>
                 {user?.displayName ? 
                     <BooksFeed user={user} posts={posts} /> : 
                     <>
-                        <h4 style={{color: "grey", textAlign:'center', marginBottom:'-5px'}}>Sign in to upload images</h4>
+                        <h4 style={{color: "grey", textAlign:'center', marginBottom:'-5px'}}>Sign in to upload a book review</h4>
                         <BooksFeed user={user} posts={posts} />                    
                     </>
                 }                

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { goToBooksFeed, goToSignIn } from '../../routes/Cordinator';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
-import SignInImage from '../../images/sign-in-image.jpg'
+import SignUpImage from '../../images/sign-up-image.jpg'
 import { auth } from '../../services/firebase';
 
 function SignUp() {
@@ -125,10 +125,10 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
     image: {
-      backgroundImage: `url(${SignInImage})`,
+      backgroundImage: `url(${SignUpImage})`,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'right center',
+      backgroundSize: '90%',
+      backgroundPosition: 'center',
     },
     paper: {
       margin: theme.spacing(8, 4),

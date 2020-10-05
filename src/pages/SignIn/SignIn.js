@@ -113,8 +113,8 @@ const useStyles = makeStyles((theme) => ({
     image: {
       backgroundImage: `url(${SignInImage})`,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'right bottom',
+      backgroundSize: 'contain',
+      backgroundPosition: 'center',
     },
     paper: {
       margin: theme.spacing(8, 4),
