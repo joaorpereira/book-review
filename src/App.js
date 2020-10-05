@@ -12,19 +12,18 @@ function App() {
   const [ posts, setPosts] = useState([])
   
   useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged((authUser) => {
-          if(authUser) {
-              setUser(authUser)
-          } else {
-              setUser(null)
-          }
-      })
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if(authUser) {
+        setUser(authUser)
+      } else {
+        setUser(null)
+      }
+    })
 
-      return () => { unsubscribe() }
+    return () => { unsubscribe() }
   },[])
 
   useEffect(() => {
-
     async function getItems() { 
       try {
         db.collection("posts")

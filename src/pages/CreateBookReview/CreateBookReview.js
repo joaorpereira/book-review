@@ -27,40 +27,40 @@ function CreateBookReview({username}) {
     }
 
     const handleFileUpload = (e) => {
-        e.preventDefault()
-        const uploadTask = storage.ref(`images/${image.name}`).put(image)
-        uploadTask.on(
-            "state_changed", 
-            (snapshot) => {
-                const progress = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                )
-                setProgress(progress)
-            },
-            (error) => {
-                console.log(error)
-                alert(error.message)
-            },
-            () => {
-              storage
-                .ref("images")
-                .child(image.name)
-                .getDownloadURL()
-                .then((url) => {
-                    db.collection("posts").add({
-                        content: form.content,
-                        imageUrl: url,
-                        title: form.title,
-                        username: username,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    })
-                    setProgress(0)
-                    setForm({title: '', content: '',})
-                    setImage("")
-                    goToBooksFeed(history)
+      e.preventDefault()
+      const uploadTask = storage.ref(`images/${image.name}`).put(image)
+      uploadTask.on(
+        "state_changed", 
+        (snapshot) => {
+            const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            )
+            setProgress(progress)
+        },
+        (error) => {
+            console.log(error)
+            alert(error.message)
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+                db.collection("posts").add({
+                    content: form.content,
+                    imageUrl: url,
+                    title: form.title,
+                    username: username,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 })
-            }    
-        )
+                setProgress(0)
+                setForm({title: '', content: '',})
+                setImage("")
+                goToBooksFeed(history)
+            })
+        }    
+      )
     }
 
   return (

@@ -18,7 +18,7 @@ function ButtonAppBar({user}) {
 
   return (
     <AppBar className={classes.root} position="sticky">
-        <Toolbar>
+        <Toolbar >
             <Button className={classes.logo} onClick={() => goToBooksFeed(history)}>
                 <img className={classes.image} src={bookReviewLogo} alt="Book Review Logo"/>
                 <Typography className={classes.text}>Book Reviews</Typography>            
@@ -26,13 +26,13 @@ function ButtonAppBar({user}) {
         </Toolbar>
         <Toolbar>
             { user ? (
-            <>
-                 <Buttons text={"Feed"} page={goToBooksFeed}/>
-                 <Buttons text={"Create"} page={goToCreateBookReview}/>
-                 <Button className={classes.button} color={'secondary'} onClick={logout} variant={'contained'} size ={'small'}>
-                    <Typography className={classes.buttonText}>Logout</Typography>    
-                 </Button> 
-            </>                 
+                <>
+                    <Buttons text={"Feed"} page={goToBooksFeed}/>
+                    <Buttons text={"Create"} page={goToCreateBookReview}/>
+                    <Button className={classes.button} color={'secondary'} onClick={logout} variant={'contained'} size ={'small'}>
+                        <Typography className={classes.buttonText}>Logout</Typography>    
+                    </Button> 
+                </>                 
             ) :            
             (<> 
                 <Buttons text={"Sign In"} page={goToSignIn} color={'secondary'} variant={'outlined'} size ={'small'} />
@@ -50,14 +50,18 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        maxWidth: "100%",
+        width: "100%",
         height: "10vh",
     },
     logo: {
         color: 'white',
+        
     },
     button: {
         marginLeft: '10px',
+        "@media(max-width: 800px)" : {
+            marginLeft: '0px',
+        } 
     },
     buttonText: {
         fontSize: '16px',
@@ -66,11 +70,15 @@ const useStyles = makeStyles({
         textTransform:'capitalize',
         "@media(max-width: 800px)" : {
             letterSpacing: '1px',
+            margin: '0px',
         }  
     },
     image: {
         height: "50px",
         marginRight: '10px',       
+        "@media(max-width: 800px)" : {            
+            margin: "0 auto",
+        } 
     },
     text: {  
         textColor:'secondary',
@@ -79,8 +87,9 @@ const useStyles = makeStyles({
         marginLeft: '10px',
         textTransform:'capitalize',
         "@media(max-width: 800px)" : {
-            visibility: 'hidden',
-        }  
+            marginLeft: '0px',
+            display: 'none'
+        }                     
     },
 
 });

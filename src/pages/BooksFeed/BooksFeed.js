@@ -7,14 +7,12 @@ function BooksReviewFeed({user, posts}) {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Grid container xs={12} spacing={2}>
-                <Grid container xs={12} item spacing={2}>
-                        {posts.map(item => {
-                            return (
-                                <BookCard key={item.id} item={item} user={user}/>
-                            )
-                        })}
-                </Grid>
+            <Grid container spacing={3}>
+                {posts.map(item => {
+                    return (
+                        <BookCard key={item.id} item={item} user={user}/>
+                    )
+                })}
             </Grid>
         </div>
     )
@@ -26,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   paper: {
     padding: theme.spacing(1),

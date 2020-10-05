@@ -18,7 +18,7 @@ function BookCard({item, user}) {
   };
 
   return (
-    <Grid item xs={3}>
+    <Grid item lg={3} md={4} sm={12} style={{margin: '0 auto'}}>
       <Card key={id} className={classes.root}>
           <BooksPosts item={item} user={user}/>
           <Comments item={item}/>
@@ -44,8 +44,9 @@ export default BookCard
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 300,
+    width: 300,
     maxHeight: 600,
+    margin: '0 auto',
   },
   expand: {
     transform: 'rotate(0deg)',

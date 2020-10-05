@@ -34,7 +34,6 @@ function CreateComment({user, item}) {
                 username: user.displayName,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
-
             setForm("")          
             goToBooksFeed(history)
 
