@@ -1,12 +1,12 @@
 import React from 'react'
 import { makeStyles, CardHeader, CardMedia, Box, Avatar, Typography} from '@material-ui/core';
 import { secondaryColor } from '../../constants/colors';
-import { Link, useHistory } from 'react-router-dom';
-import { goToBookReview } from '../../routes/Cordinator';
+// import { Link, useHistory } from 'react-router-dom';
+// import { goToBookReview } from '../../routes/Cordinator';
 
 function BookPosts({item}) {
 
-  const history = useHistory();
+  // const history = useHistory();
   
   const { post } = item
   const classes = useStyles();
@@ -21,6 +21,7 @@ function BookPosts({item}) {
       <Typography className={classes.bookTitle}>{post.title}</Typography>
       {/* <Link href="#" onClick={goToBookReview(history)}> */}
         <CardMedia
+            component={"img"}
             className={classes.media}            
             image={post.imageUrl}
             title={post.imageUrl}

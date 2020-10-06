@@ -24,7 +24,7 @@ function ButtonAppBar({user}) {
                 <Typography className={classes.text}>Book Reviews</Typography>            
             </Button>
         </Toolbar>
-        <Toolbar>
+        <Toolbar >
             { user ? (
                 <>
                     <Buttons text={"Feed"} page={goToBooksFeed}/>
@@ -54,8 +54,7 @@ const useStyles = makeStyles({
         height: "10vh",
     },
     logo: {
-        color: 'white',
-        
+        color: 'white',        
     },
     button: {
         marginLeft: '10px',
@@ -91,5 +90,4 @@ const useStyles = makeStyles({
             display: 'none'
         }                     
     },
-
 });

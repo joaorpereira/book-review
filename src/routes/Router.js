@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { SignIn, SignUp, CreateBookReview, BooksFeed, BookReview, ErrorPage} from '../pages/index'
+import { SignIn, SignUp, CreateBookReview, BooksFeed, Book, ErrorPage} from '../pages/index'
 
 const Router = ({user, posts}) => {
     return (
@@ -27,7 +27,7 @@ const Router = ({user, posts}) => {
                 }                
             </Route>
             <Route exact path={'/books/:id'}>
-                <BookReview />
+                <Book />
             </Route>
             <Route>
                 <ErrorPage/>

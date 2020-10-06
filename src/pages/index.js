@@ -1,4 +1,4 @@
-export { default as BookReview} from './BookReview/BookReview'
+export { default as Book} from './Book/Book'
 export { default as BooksFeed} from './BooksFeed/BooksFeed'
 export { default as CreateBookReview} from './CreateBookReview/CreateBookReview'
 export { default as SignIn} from './SignIn/SignIn'
