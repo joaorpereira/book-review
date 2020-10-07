@@ -13,6 +13,7 @@ function ButtonAppBar() {
   const history = useHistory();  
 
   const { currentUser } = useContext(AuthContext);
+  console.log(!currentUser)
   const logout = () => {
     app.auth().signOut()
     goToSignIn(history)

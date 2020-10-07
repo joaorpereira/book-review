@@ -21,6 +21,10 @@ const useStyles = makeStyles({
     button: {
         marginLeft: '5px',
         marginRight: '10px',
+        "@media(max-width: 800px)" : {
+            marginLeft: '0px',
+            marginRight: '0px',
+        }  
     },
     buttonText: {
         color: 'white',
@@ -28,7 +32,8 @@ const useStyles = makeStyles({
         letterSpacing: '2px',
         textTransform:'uppercase',
         "@media(max-width: 800px)" : {
-            letterSpacing: '1px',
+            letterSpacing: '0px',
+            textTransform:'capitalize',
         }  
     },
 });

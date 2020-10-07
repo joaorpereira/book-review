@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ThemeContext from './constants/ThemeContext'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from './routes/Router';
-import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar'
 import { db } from './services/firebase';
 import { AuthProvider } from './services/Auth';
@@ -35,11 +34,9 @@ function App() {
   return (
       <ThemeContext>
         <CssBaseline />
-        <AuthProvider>
-          <BrowserRouter>
-            <Navbar/>
-            <Router posts={posts}/>
-          </BrowserRouter>
+        <AuthProvider>      
+          <Navbar/>
+          <Router posts={posts}/>
         </AuthProvider>
       </ThemeContext>
   );

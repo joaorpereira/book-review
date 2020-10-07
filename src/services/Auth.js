@@ -1,3 +1,4 @@
+import { Box, CircularProgress } from "@material-ui/core";
 import React, { useEffect, useState, createContext } from "react";
 import {app} from "./firebase.js";
 
@@ -12,10 +13,11 @@ export const AuthProvider = ({ children }) => {
       setCurrentUser(user)
       setPending(false)
     });
+
   }, []);
 
   if(pending){
-    return <>Loading...</>
+    return  <Box style={{display: 'flex', justifyContent: 'center', marginTop: '150px'}}><CircularProgress/></Box>
   }
 
   return (

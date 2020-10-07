@@ -1,15 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { goToSignIn } from '../../routes/Cordinator';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignUpImage from '../../images/sign-up-image.jpg'
 import { app } from "../../services/firebase";
+import { AuthContext } from '../../services/Auth';
 
 function SignUp() {
 
   const history = useHistory();
   const classes = useStyles();
+  const { currentUser } = useContext(AuthContext);
 
   const handleSignUp = useCallback(async event => {
     event.preventDefault();
@@ -27,6 +29,12 @@ function SignUp() {
     }
   }, [history]);
 
+  useEffect(() => {
+    if(!!currentUser){
+      history.push('/')
+    }
+  })
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -37,51 +45,16 @@ function SignUp() {
             Sign Up
           </Typography>
           <form className={classes.form} id="signUp_form" onSubmit={handleSignUp}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Name"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Email"
-              name="email"
-              autoComplete="email"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+            <TextField variant="outlined" margin="normal" required fullWidth label="Name" name="username" type="text" autoFocus/>
+            <TextField variant="outlined" margin="normal" required fullWidth label="Email" name="email" type="email"/>
+            <TextField variant="outlined" margin="normal" required fullWidth label="Password" name="password" type="password"/>
+            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
               Sign Up
             </Button>
             <Grid container>
               <Grid item>
-                <Button             
-                    variant="text"
-                    color="secondary" 
-                    onClick={() => goToSignIn(history)}
-                    >
-                Do you have an account? Sign In
+                <Button variant="text" color="secondary" onClick={() => goToSignIn(history)}>
+                  Do you have an account? Sign In
                 </Button>
               </Grid>
             </Grid>
