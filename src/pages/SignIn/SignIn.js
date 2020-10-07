@@ -1,42 +1,31 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { goToBooksFeed, goToSignUp } from '../../routes/Cordinator';
+import { goToSignUp } from '../../routes/Cordinator';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignInImage from '../../images/sign-in-image.jpg'
-import { auth } from '../../services/firebase';
+import { app } from "../../services/firebase";
 
 function SignIn() {
-  
+
   const history = useHistory();
   const classes = useStyles();
 
-  const [form, setForm] = useState({email: '', password: ''})
-
-  const handleChange = (e) => {
-    const { value, name } = e.target
-    setForm({...form, [name] : value})
-  }
-
-  const signIn = (e) => {
-    e.preventDefault()
-
-    const element = document.getElementById("signIn_form")
-    const validation = element.checkValidity()
-    element.reportValidity()
-
-    if(validation){
-      auth
-      .signInWithEmailAndPassword(form.email, form.password)
-      .catch((err) => {
-        return alert(err.message)
-      })      
-      goToBooksFeed(history)
-
-    } else{
-      alert("User or password incorrect!")
-    }
-  } 
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history]
+  );
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -47,10 +36,8 @@ function SignIn() {
           <Typography variant="h5">
             Sign In
           </Typography>
-          <form className={classes.form} id="signIn_form">
+          <form className={classes.form} id="signIn_form" onSubmit={handleLogin}>
             <TextField
-              value={form.email}
-              onChange={handleChange}
               variant="outlined"
               margin="normal"
               required
@@ -60,8 +47,6 @@ function SignIn() {
               autoFocus
             />
             <TextField
-              value={form.password}
-              onChange={handleChange}
               variant="outlined"
               margin="normal"
               required
@@ -76,7 +61,6 @@ function SignIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={signIn}
             >
               Sign In
             </Button>

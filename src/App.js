@@ -4,25 +4,13 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from './routes/Router';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar'
-import { auth, db } from './services/firebase';
+import { db } from './services/firebase';
+import { AuthProvider } from './services/Auth';
 
 function App() {
-  
-  const [ user, setUser] = useState(null)
+
   const [ posts, setPosts] = useState([])
   
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if(authUser) {
-        setUser(authUser)
-      } else {
-        setUser(null)
-      }
-    })
-
-    return () => { unsubscribe() }
-  },[])
-
   useEffect(() => {
     async function getItems() { 
       try {
@@ -47,10 +35,12 @@ function App() {
   return (
       <ThemeContext>
         <CssBaseline />
-        <BrowserRouter>
-          <Navbar user={user}/>
-          <Router user={user} posts={posts}/>
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <Navbar/>
+            <Router posts={posts}/>
+          </BrowserRouter>
+        </AuthProvider>
       </ThemeContext>
   );
 }

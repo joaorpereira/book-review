@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, AppBar, Toolbar, Button, Typography } from '@material-ui/core';
 import { goToBooksFeed, goToSignIn, goToSignUp, goToCreateBookReview } from '../../routes/Cordinator';
 import bookReviewLogo from '../../images/logo2.png'
-import { auth } from '../../services/firebase';
+import { app } from '../../services/firebase';
 import Buttons from './Buttons/Buttons';
+import { AuthContext } from '../../services/Auth';
 
-function ButtonAppBar({user}) {
+function ButtonAppBar() {
 
   const classes = useStyles();
-  const history = useHistory();
+  const history = useHistory();  
 
+  const { currentUser } = useContext(AuthContext);
   const logout = () => {
-    auth.signOut()
+    app.auth().signOut()
     goToSignIn(history)
   }
 
@@ -25,7 +27,7 @@ function ButtonAppBar({user}) {
             </Button>
         </Toolbar>
         <Toolbar >
-            { user ? (
+            { currentUser ? (
                 <>
                     <Buttons text={"Feed"} page={goToBooksFeed}/>
                     <Buttons text={"Create"} page={goToCreateBookReview}/>

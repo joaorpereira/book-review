@@ -1,67 +1,68 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase'
 import {db, storage} from '../../services/firebase'
 import { goToBooksFeed } from '../../routes/Cordinator';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
+import { AuthContext } from '../../services/Auth';
 
 
-function CreateBookReview({username}) {
-    const history = useHistory();
-    const classes = useStyles();
+function CreateBookReview() {
+  const history = useHistory();
+  const classes = useStyles();
+  const { currentUser } = useContext(AuthContext); 
 
-    const [form, setForm] = useState({title: '', content: '',})
-    const [progress, setProgress] = useState(0)
-    const [image, setImage] = useState("")
+  const [form, setForm] = useState({title: '', content: '',})
+  const [progress, setProgress] = useState(0)
+  const [image, setImage] = useState("")
 
-    const handleChange = (e) => {
-        const { value, name } = e.target
-        setForm({...form, [name] : value})
-    }
+  const handleChange = (e) => {
+      const { value, name } = e.target
+      setForm({...form, [name] : value})
+  }
 
-    const handleImageChange = (e) => {
-        if(e.target.files[0]){
-            setImage(e.target.files[0])
-        }
-    }
+  const handleImageChange = (e) => {
+      if(e.target.files[0]){
+          setImage(e.target.files[0])
+      }
+  }
 
-    const handleFileUpload = (e) => {
-      e.preventDefault()
-      const uploadTask = storage.ref(`images/${image.name}`).put(image)
-      uploadTask.on(
-        "state_changed", 
-        (snapshot) => {
-            const progress = Math.round(
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            )
-            setProgress(progress)
-        },
-        (error) => {
-            console.log(error)
-            alert(error.message)
-        },
-        () => {
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then((url) => {
-                db.collection("posts").add({
-                    content: form.content,
-                    imageUrl: url,
-                    title: form.title,
-                    username: username,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                })
-                setProgress(0)
-                setForm({title: '', content: '',})
-                setImage("")
-                goToBooksFeed(history)
-            })
-        }    
-      )
-    }
+  const handleFileUpload = (e) => {
+    e.preventDefault()
+    const uploadTask = storage.ref(`images/${image.name}`).put(image)
+    uploadTask.on(
+      "state_changed", 
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        )
+        setProgress(progress)
+      },
+      (error) => {
+          alert(error.message)
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+              db.collection("posts").add({
+                  content: form.content,
+                  imageUrl: url,
+                  title: form.title,
+                  username: currentUser.displayName,
+                  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              })
+              setProgress(0)
+              setForm({title: '', content: '',})
+              setImage("")
+              goToBooksFeed(history)
+          })
+      }    
+    )
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -109,7 +110,8 @@ function CreateBookReview({username}) {
             />     
             <LinearProgress 
                 variant="determinate"
-                value={progress}/>  
+                value={progress}
+                style={{width: "100%", marginTop: "20px", marginBottom: "20px"}}/>  
             <Button
               className={classes.submit}     
               variant="contained"

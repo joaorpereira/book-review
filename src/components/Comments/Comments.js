@@ -27,9 +27,9 @@ function BookCard({item}) {
         <Divider light />
         {(comments.length !== 0) ? (
             <Box style={{margin: '0px', padding: '0px'}}>
-                {comments.map(comment => {
+                {comments.map((comment) => {
                     return (
-                        <Box>
+                        <Box key={comment.text}>
                             <Typography variant="body2" className={classes.comments}>
                               <strong>{comment.username}</strong>
                               {": "}{comment.text}

@@ -1,6 +1,7 @@
 import firebase from 'firebase';
+import "firebase/auth";
 
-const firebaseApp = {
+const app = firebase.initializeApp({
   apiKey: "AIzaSyCgL0ZHTQpYP0SU9iYzQ6FWmcBbf-FtWXQ",
   authDomain: "bookreview-56c7d.firebaseapp.com",
   databaseURL: "https://bookreview-56c7d.firebaseio.com",
@@ -8,9 +9,7 @@ const firebaseApp = {
   storageBucket: "bookreview-56c7d.appspot.com",
   messagingSenderId: "947076511336",
   appId: "1:947076511336:web:06e8adf6a85274244c6ddd"
-};
-
-firebase.initializeApp(firebaseApp)
+});
 
 // Database
 const db = firebase.firestore()
@@ -21,4 +20,4 @@ const auth = firebase.auth()
 // Storage 
 const storage = firebase.storage()
 
-export {db, auth, storage} 
+export {db, auth, storage, app} 

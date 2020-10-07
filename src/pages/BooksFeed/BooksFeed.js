@@ -1,20 +1,20 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import {Grid, Box} from '@material-ui/core';
 import BookCard from '../../components/BookCard/BookCard'
 
-function BooksReviewFeed({user, posts}) {
-    const classes = useStyles();
+function BooksReviewFeed({posts}) {
+    const classes = useStyles();   
     return (
-        <div className={classes.root}>
+        <Box className={classes.root}>
             <Grid container spacing={3}>
                 {posts.map(item => {
                     return (
-                        <BookCard key={item.id} item={item} user={user}/>
+                        <BookCard key={item.id} item={item}/>
                     )
                 })}
             </Grid>
-        </div>
+        </Box> 
     )
 }
 

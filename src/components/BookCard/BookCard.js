@@ -9,7 +9,7 @@ import AddCommentOutlinedIcon from '@material-ui/icons/AddCommentOutlined'
 import ShowReviews from './ShowReviews'
 import ShowComments from './ShowComments'
 
-function BookCard({item, user}) {
+function BookCard({item}) {
 
   const { id, post } = item
 
@@ -25,9 +25,9 @@ function BookCard({item, user}) {
   };
 
   return (
-    <Grid item lg={3} md={4} sm={12} style={{margin: '0 auto'}}>
+    <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
       <Card key={id} className={classes.root}>
-          <BooksPosts item={item} user={user}/>
+          <BooksPosts item={item}/>
           <Comments item={item}/>
           <Box style={{margin: '0', paddding: '0', display:'flex', justifyContent:'space-between'}}>            
             <IconButton
@@ -47,7 +47,7 @@ function BookCard({item, user}) {
               {addComment ? <AddCommentIcon /> : <AddCommentOutlinedIcon />}            
             </IconButton>
           </Box>
-          <ShowComments addComment={addComment} item={item} user={user}/>
+          <ShowComments addComment={addComment} item={item}/>
           <ShowReviews showReview={showReview} post={post}/>
       </Card>            
     </Grid>
@@ -57,6 +57,13 @@ function BookCard({item, user}) {
 export default BookCard
 
 const useStyles = makeStyles((theme) => ({
+  gridItem: {
+    display: 'flex', 
+    flexDirection: 'flex-start',
+    "@media(max-width: 800px)" : {
+      margin: '0 auto',
+    }
+  },
   root: {
     width: 300,
     minHeight: 510,

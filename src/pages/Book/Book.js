@@ -3,13 +3,11 @@ import { Grid, makeStyles } from '@material-ui/core'
 import BookInfo from '../../components/BookInfo/BookInfo'
 
 function BooksReviewFeed() {
-    
     const classes = useStyles()
-
     return (
-            <Grid className={classes.root}container spacing={24} justify="center">
-                <BookInfo/>
-            </Grid>
+        <Grid className={classes.root}container spacing={24} justify="center">
+            <BookInfo/>
+        </Grid>
     )
 }
 

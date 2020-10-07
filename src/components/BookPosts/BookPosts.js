@@ -8,11 +8,11 @@ function BookPosts({item}) {
 
   // const history = useHistory();
   
-  const { post } = item
+  const { post, id } = item
   const classes = useStyles();
 
   return (
-    <Box className={classes.bookInformation}>
+    <Box key={id} className={classes.bookInformation}>
       <CardHeader
           style={{textTransform: 'capitalize'}}
           avatar={<Avatar className={classes.avatar}>{post.username.substr(0,1)}</Avatar>}          
