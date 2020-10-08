@@ -1,18 +1,19 @@
-import React, { useContext, useLayoutEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase'
-import {db, storage} from '../../services/firebase'
-import { goToBooksFeed } from '../../routes/Cordinator';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { makeStyles, Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
 import { AuthContext } from '../../services/Auth';
-
+import {db, storage} from '../../services/firebase'
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { goToBooksFeed } from '../../routes/Cordinator';
+import useAuthPage from '../../hooks/useAuthPage';
+import { makeStyles, Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
 
 function CreateBookReview() {
+  useAuthPage()
+  const initialState = {title: '', content: '', synopsis: ''}
   const history = useHistory();
   const classes = useStyles();
-  const initialState = {title: '', content: '', synopsis: ''}
-  const { currentUser } = useContext(AuthContext); 
+  const { currentUser } = useContext(AuthContext);
 
   const [form, setForm] = useState(initialState)
   const [progress, setProgress] = useState(0)
@@ -28,12 +29,6 @@ function CreateBookReview() {
           setImage(e.target.files[0])
       }
   }
-
-  useLayoutEffect(() => {
-    if(!currentUser){
-      history.push('/signin')
-    }
-  },[history, currentUser])
 
   const handleFileUpload = (e) => {
     e.preventDefault()

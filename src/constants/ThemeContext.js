@@ -5,16 +5,16 @@ import { primaryColor, secondaryColor, regularColor} from './colors';
 const ThemeContext = ({ children }) => {
     const theme = createMuiTheme({
       palette: {
-          primary: {
+        primary: {
           main: primaryColor,
           constrastText: "white",
         },
-          secondary: {
+        secondary: {
           main: secondaryColor,
         },
         text: {
-            primary: regularColor,
-        }
+          primary: regularColor,
+        },
       },
       breakpoints: {
         values: {

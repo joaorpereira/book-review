@@ -1,17 +1,17 @@
-import React, { useCallback, useContext, useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { app } from "../../services/firebase";
 import Copyright from '../../components/Copyright';
 import { goToSignUp } from '../../routes/Cordinator';
 import SignInImage from '../../images/sign-in-image.jpg'
 import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
-import { AuthContext } from '../../services/Auth';
+import useUnAuthPage from '../../hooks/useUnAuthPage';
 
 function SignIn() {
 
+  useUnAuthPage()
   const history = useHistory();
   const classes = useStyles();
-  const { currentUser } = useContext(AuthContext);
 
   const handleLogin = useCallback(
     async event => {
@@ -28,12 +28,6 @@ function SignIn() {
     },
     [history]
   );
-
-  useLayoutEffect(() => {
-    if(!!currentUser){
-      history.push('/books')
-    }
-  },[history, currentUser])
 
   return (
     <Grid container component="main" className={classes.root}>

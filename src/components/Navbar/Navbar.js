@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, AppBar, Toolbar, Button, Typography } from '@material-ui/core';
 import { goToBooksFeed, goToSignIn, goToSignUp, goToCreateBookReview } from '../../routes/Cordinator';
@@ -6,16 +6,25 @@ import bookReviewLogo from '../../images/logo2.png'
 import { app } from '../../services/firebase';
 import Buttons from './Buttons/Buttons';
 import { AuthContext } from '../../services/Auth';
+import useUnAuthPage from '../../hooks/useUnAuthPage';
 
 function ButtonAppBar() {
-
+  
+  useUnAuthPage()
   const classes = useStyles();
   const history = useHistory();  
   const { currentUser } = useContext(AuthContext);
+  console.log(!!currentUser)
+
+  useLayoutEffect(() => {
+    if (!currentUser) {
+        logout()
+        goToSignIn(history)
+    }
+  },[history, currentUser])
 
   const logout = () => {
     app.auth().signOut()
-    goToSignIn(history)
   }
 
   return (
@@ -37,8 +46,10 @@ function ButtonAppBar() {
                 </>                 
             ) :            
             (<> 
-                <Buttons text={"Sign In"} page={goToSignIn} color={'secondary'} variant={'outlined'} size ={'small'} />
                 <Buttons text={"Sign Up"} page={goToSignUp} color={'secondary'} variant={'outlined'} size ={'small'} />
+                <Button className={classes.button} color={'secondary'} onClick={() => goToSignIn(history)} variant={'contained'} size ={'small'}>
+                        <Typography className={classes.buttonText}>Login</Typography>    
+                </Button> 
             </>)}
         </Toolbar>  
     </AppBar>

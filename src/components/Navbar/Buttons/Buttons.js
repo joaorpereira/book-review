@@ -28,9 +28,9 @@ const useStyles = makeStyles({
     },
     buttonText: {
         color: 'white',
-        fontSize: '14px',
-        letterSpacing: '2px',
-        textTransform:'uppercase',
+        fontSize: '16px',
+        letterSpacing: '1px',
+        textTransform:'capitalize',
         "@media(max-width: 800px)" : {
             letterSpacing: '0px',
             textTransform:'capitalize',

@@ -1,17 +1,17 @@
-import React, { useCallback, useContext, useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { goToSignIn } from '../../routes/Cordinator';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
 import Copyright from '../../components/Copyright';
 import SignUpImage from '../../images/sign-up-image.jpg'
 import { app } from "../../services/firebase";
-import { AuthContext } from '../../services/Auth';
+import useUnAuthPage from '../../hooks/useUnAuthPage';
 
 function SignUp() {
 
+  useUnAuthPage()
   const history = useHistory();
   const classes = useStyles();
-  const { currentUser } = useContext(AuthContext);
 
   const handleSignUp = useCallback(async event => {
     event.preventDefault();
@@ -28,12 +28,6 @@ function SignUp() {
       alert(error);
     }
   }, [history]);
-
-  useLayoutEffect(() => {
-    if(!!currentUser){
-      history.push('/books')
-    }
-  },[history, currentUser])
 
   return (
     <Grid container component="main" className={classes.root}>
