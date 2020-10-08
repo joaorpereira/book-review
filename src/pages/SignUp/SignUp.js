@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { goToSignIn } from '../../routes/Cordinator';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Box, Grid, Typography } from '@material-ui/core';
@@ -23,17 +23,17 @@ function SignUp() {
         .auth()
         .createUserWithEmailAndPassword(email.value, password.value);
         await newUser.user.updateProfile({displayName: username.value});
-      history.push("/");
+      history.push("/books");
     } catch (error) {
       alert(error);
     }
   }, [history]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(!!currentUser){
-      history.push('/')
+      history.push('/books')
     }
-  })
+  },[history, currentUser])
 
   return (
     <Grid container component="main" className={classes.root}>

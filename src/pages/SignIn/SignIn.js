@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { app } from "../../services/firebase";
 import Copyright from '../../components/Copyright';
@@ -21,7 +21,7 @@ function SignIn() {
         await app
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
-        history.push('/')
+        history.push('/books')
       } catch (error) {
         console.error(error)
       }
@@ -29,11 +29,11 @@ function SignIn() {
     [history]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(!!currentUser){
-      history.push('/')
+      history.push('/books')
     }
-  })
+  },[history, currentUser])
 
   return (
     <Grid container component="main" className={classes.root}>

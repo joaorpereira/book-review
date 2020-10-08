@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Box} from '@material-ui/core';
 import BookCard from '../../components/BookCard/BookCard'
+import { PostContext } from '../../services/Post';
 
-function BooksReviewFeed({posts}) {
-    const classes = useStyles();   
+function BooksReviewFeed() {
+    const { posts } = useContext(PostContext);
+    const classes = useStyles();
+
     return (
         <Box className={classes.root}>
             <Grid container spacing={3}>

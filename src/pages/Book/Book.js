@@ -5,7 +5,7 @@ import BookInfo from '../../components/BookInfo/BookInfo'
 function BooksReviewFeed() {
     const classes = useStyles()
     return (
-        <Grid className={classes.root}container spacing={24} justify="center">
+        <Grid className={classes.root}container justify="center">
             <BookInfo/>
         </Grid>
     )

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase'
 import {db, storage} from '../../services/firebase'
@@ -11,9 +11,10 @@ import { AuthContext } from '../../services/Auth';
 function CreateBookReview() {
   const history = useHistory();
   const classes = useStyles();
+  const initialState = {title: '', content: '', synopsis: ''}
   const { currentUser } = useContext(AuthContext); 
 
-  const [form, setForm] = useState({title: '', content: '',})
+  const [form, setForm] = useState(initialState)
   const [progress, setProgress] = useState(0)
   const [image, setImage] = useState("")
 
@@ -27,6 +28,12 @@ function CreateBookReview() {
           setImage(e.target.files[0])
       }
   }
+
+  useLayoutEffect(() => {
+    if(!currentUser){
+      history.push('/signin')
+    }
+  },[history, currentUser])
 
   const handleFileUpload = (e) => {
     e.preventDefault()
@@ -53,10 +60,11 @@ function CreateBookReview() {
                   imageUrl: url,
                   title: form.title,
                   username: currentUser.displayName,
+                  synopsis: form.synopsis,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               })
               setProgress(0)
-              setForm({title: '', content: '',})
+              setForm({title: '', content: '', synopsis: '',})
               setImage("")
               goToBooksFeed(history)
           })
@@ -73,39 +81,36 @@ function CreateBookReview() {
           <MenuBookIcon/> Create Book Review
           </Typography>          
           <form className={classes.form} id="create_form">
-            <TextField
+            <TextField variant="outlined" margin="normal" required fullWidth
               value={form.title}
-              onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
+              onChange={handleChange}              
               name="title"
               label="Book Title"
               autoFocus
+              size='small'
             />
-            <TextField
+              <TextField variant="outlined" margin="normal" required fullWidth multiline
+                value={form.synopsis}
+                onChange={handleChange}                
+                name="synopsis"
+                label="Synopsis"
+                rows={1}
+                rowsMax={6}
+              />
+            <TextField variant="outlined" margin="normal" required fullWidth multiline
               value={form.content}
-              onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
+              onChange={handleChange}              
               name="content"
-              label="Review"
-              multiline
-              rows={2}
+              label="Review"            
+              rows={1}
               rowsMax={4}
             />
-            <TextField
+            <TextField variant="outlined" margin="normal" required fullWidth 
               onChange={handleImageChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
               name="image"
               label="Image file"
               type="file"    
+              size="small"
               InputLabelProps={{shrink: true}}
             />     
             <LinearProgress 
@@ -131,8 +136,6 @@ function CreateBookReview() {
 
 export default CreateBookReview;
 
-// Material UI
-
 const useStyles = makeStyles((theme) => ({
     root: {
       height: '90vh',
@@ -150,8 +153,10 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection:'column',
-      maxWidth: '450px',
-      marginTop: theme.spacing(1),
+      width: '400px',
+      "@media(max-width: 800px)" : {
+        width: '90%',
+      },     
     },
     submit: {
       width: '200px',

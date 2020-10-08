@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from '../services/PrivateRoute';
 import { SignIn, SignUp, CreateBookReview, BooksFeed, Book, ErrorPage} from '../pages/index'
 
-const Router = ({posts}) => {
+const Router = () => {
     return (
         <Switch>
             <Route exact path={'/signin'}>
@@ -12,15 +11,15 @@ const Router = ({posts}) => {
             <Route exact path={'/signup'}>
                 <SignUp/>
             </Route>
-            <PrivateRoute exact path={'/create'}>
-                <CreateBookReview/>
-            </PrivateRoute>
-            <Route exact path={['/books', '/']}>
-                <BooksFeed posts={posts}/>                     
+            <Route exact path={'/create'}>
+                <CreateBookReview/>                     
             </Route>
-            <PrivateRoute exact path={'/books/:bookId'}>                
+            <Route exact path={['/books', '/']}>
+                <BooksFeed/>                     
+            </Route>
+            <Route exact path={'/books/:bookId'}>                
                 <Book />
-            </PrivateRoute>
+            </Route>
             <Route>
                 <ErrorPage/>
             </Route>        

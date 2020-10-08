@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import BooksPosts from '../BookPosts/BookPosts'
 import Comments from '../Comments/Comments'
 import clsx from 'clsx';
-import { makeStyles, Card, IconButton, Grid, Box } from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { makeStyles, Card, IconButton, Grid, Box, Typography, Button } from '@material-ui/core'
 import AddCommentIcon from '@material-ui/icons/AddComment'
 import AddCommentOutlinedIcon from '@material-ui/icons/AddCommentOutlined'
 import ShowReviews from './ShowReviews'
@@ -28,16 +27,14 @@ function BookCard({item}) {
     <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
       <Card key={id} className={classes.root}>
           <BooksPosts item={item}/>
-          <Comments item={item}/>
-          <Box style={{margin: '0', paddding: '0', display:'flex', justifyContent:'space-between'}}>            
-            <IconButton
-              style={{margin: '0', paddding: '0', display:'flex', justifyContent:'flex-start'}}
-              className={clsx(classes.expand, {[classes.expandOpen]: showReview,})}
+          <Box style={{margin: '0', paddding: '0', display:'flex', justifyContent:'space-between', height:'20px'}}>            
+            <Button
+              className={classes.review}
               onClick={handleExpandReview}
               aria-expanded={showReview}
             > 
-              <ExpandMoreIcon />       
-            </IconButton>          
+              <Typography variant="overline">Review</Typography>       
+            </Button>          
             <IconButton
               style={{margin: '0', paddding: '0', display:'flex', justifyContent:'flex-end'}}
               className={clsx(classes.expand)}
@@ -49,6 +46,7 @@ function BookCard({item}) {
           </Box>
           <ShowComments addComment={addComment} item={item}/>
           <ShowReviews showReview={showReview} post={post}/>
+          <Comments item={item}/>
       </Card>            
     </Grid>
   )
@@ -66,18 +64,16 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     width: 300,
-    minHeight: 510,
+    minHeight: 500,
     margin: '0 auto',
   },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
+  review: {
+    margin: '0',
+    marginLeft: '9px', 
+    paddding: '0', 
+    display:'flex', 
+    justifyContent:'flex-start',
+    fontSize: '10px',
   },
 }));
 
