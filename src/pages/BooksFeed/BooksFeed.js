@@ -14,7 +14,8 @@ function BooksReviewFeed() {
         (!!currentUser) ? (
             <Box className={classes.root}>
                 <Grid container spacing={3}>
-                    {posts.map(item => (<BookCard key={item.id} item={item}/>))}
+                    {posts.length > 0 ? (posts.map(item => (<BookCard key={item.id} item={item}/>))) : 
+                    <Typography variant="body2" className={classes.message}>There are not reviews</Typography>}
                 </Grid>
             </Box>
         ) : (        
@@ -44,5 +45,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '-10px',
     marginBottom: '15px',
     color:'gray',
+    margin: '0 auto'
   }
 }));

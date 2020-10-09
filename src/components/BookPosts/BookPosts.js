@@ -23,6 +23,7 @@ function BookPosts({item}) {
 
   const onClickDelete = (id) => {
     db.collection("posts").doc(id).delete()
+    db.collection("posts").doc(id).collection("comments").delete()
   }
 
   return (

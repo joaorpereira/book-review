@@ -13,7 +13,7 @@ function SignUp() {
   const history = useHistory();
   const classes = useStyles();
 
-  const handleSignUp = useCallback(async event => {
+  const handleSignUp = useCallback( async event => {
     event.preventDefault();
    
     const { username, email, password } = event.target.elements;    
@@ -23,7 +23,7 @@ function SignUp() {
         .auth()
         .createUserWithEmailAndPassword(email.value, password.value);
         await newUser.user.updateProfile({displayName: username.value});
-      history.push("/books");
+        history.push("/books");
     } catch (error) {
       alert(error);
     }
