@@ -18,11 +18,14 @@ function BookPosts({item}) {
   const classes = useStyles();
 
   useEffect(() => {
-    if (currentUser.displayName !== null && currentUser.displayName === 'admin'){
-      setShowClose(true)
+    if (!!currentUser){
+      if(currentUser.displayName === 'admin'){
+        setShowClose(true)
+      }
     }
-  },[])
+  },[currentUser])
 
+  console.log(!!currentUser)
   const onClickDelete = (id) => {
     db.collection("posts").doc(id).delete()
     db.collection("posts").doc(id).collection("comments").delete()
