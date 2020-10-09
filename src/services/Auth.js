@@ -9,10 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [pending, setPending] = useState(true);
 
   useEffect(() => {
-    app.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user)
-      setPending(false)
-    });
+
+    async function getAuth() { 
+      try {
+        await app.auth().onAuthStateChanged((user) => {
+          setCurrentUser(user)
+          })
+          setPending(false)
+      } catch (error) {
+        alert("Ocorreu um erro ao tentar a autentificação");
+      }
+    }
+    getAuth()
 
   }, []);
 

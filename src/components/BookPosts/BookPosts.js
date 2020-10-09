@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { makeStyles, CardHeader, CardMedia, Box, Avatar, Typography, Button} from '@material-ui/core';
 import { secondaryColor } from '../../constants/colors';
 import { useHistory } from 'react-router-dom';
@@ -17,9 +17,11 @@ function BookPosts({item}) {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
 
-  if (currentUser.displayName === 'admin'){
-    setShowClose(true)
-  }
+  useEffect(() => {
+    if (currentUser.displayName !== null && currentUser.displayName === 'admin'){
+      setShowClose(true)
+    }
+  },[])
 
   const onClickDelete = (id) => {
     db.collection("posts").doc(id).delete()

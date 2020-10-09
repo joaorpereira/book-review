@@ -11,7 +11,7 @@ export const PostProvider = ({ children }) => {
   useEffect(() => {
     async function getItems() { 
       try {
-        db.collection("posts")
+        await db.collection("posts")
           .orderBy("timestamp", "desc")
           .onSnapshot(snapshot => {
             setPosts(
