@@ -25,7 +25,7 @@ function BookCard({item}) {
 
   return (
     <Grid item lg={3} md={4} sm={12} className={classes.gridItem}>
-      <Card key={id} className={classes.root}>
+      <Card key={id} className={classes.root}>          
           <BooksPosts item={item}/>
           <Box style={{margin: '0', paddding: '0', display:'flex', justifyContent:'space-between', height:'20px'}}>            
             <Button

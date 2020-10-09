@@ -15,5 +15,5 @@ export const goToBooksFeed = (history) => {
 }
 
 export const goToBookReview = (history, id) => {
-    history.push(`books${id}`)
+    history.push(`books/${id}`)
 }

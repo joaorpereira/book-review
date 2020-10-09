@@ -5,24 +5,12 @@ import { SignIn, SignUp, CreateBookReview, BooksFeed, Book, ErrorPage} from '../
 const Router = () => {
     return (
         <Switch>
-            <Route exact path={'/signin'}>
-                <SignIn/>
-            </Route>
-            <Route exact path={'/signup'}>
-                <SignUp/>
-            </Route>
-            <Route exact path={'/create'}>
-                <CreateBookReview/>                     
-            </Route>
-            <Route exact path={['/books', '/']}>
-                <BooksFeed/>                     
-            </Route>
-            <Route exact path={'/books/:bookId'}>                
-                <Book />
-            </Route>
-            <Route>
-                <ErrorPage/>
-            </Route>        
+            <Route exact path={'/signin'} component={SignIn}/>
+            <Route exact path={'/signup'} component={SignUp}/>
+            <Route exact path={'/create'} component={CreateBookReview}/>
+            <Route exact path={['/books', '/']} component={BooksFeed}/>                
+            <Route exact path={'/books/:id'} component={Book}/>                
+            <Route component={ErrorPage}/>       
         </Switch>
     )
 }

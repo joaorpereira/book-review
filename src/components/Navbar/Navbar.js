@@ -14,7 +14,6 @@ function ButtonAppBar() {
   const classes = useStyles();
   const history = useHistory();  
   const { currentUser } = useContext(AuthContext);
-  console.log(!!currentUser)
 
   useLayoutEffect(() => {
     if (!currentUser) {

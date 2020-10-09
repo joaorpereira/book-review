@@ -1,32 +1,53 @@
-import React from 'react'
-import { makeStyles, CardHeader, CardMedia, Box, Avatar, Typography} from '@material-ui/core';
+import React, { useContext, useState } from 'react'
+import { makeStyles, CardHeader, CardMedia, Box, Avatar, Typography, Button} from '@material-ui/core';
 import { secondaryColor } from '../../constants/colors';
-// import { Link, useHistory } from 'react-router-dom';
-// import { goToBookReview } from '../../routes/Cordinator';
+import { useHistory } from 'react-router-dom';
+import { goToBookReview } from '../../routes/Cordinator';
+import { AuthContext } from '../../services/Auth';
+import { db } from '../../services/firebase'
+import CloseIcon from '@material-ui/icons/Close';
 
 function BookPosts({item}) {
 
-  // const history = useHistory();
+  const history = useHistory();
+
+  const [ showClose, setShowClose] = useState(false)
   
   const { post, id } = item
+  const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
+
+  if (currentUser.displayName === 'admin'){
+    setShowClose(true)
+  }
+
+  const onClickDelete = (id) => {
+    db.collection("posts").doc(id).delete()
+  }
 
   return (
     <Box key={id} className={classes.bookInformation}>
-      <CardHeader
-          style={{textTransform: 'capitalize'}}
-          avatar={<Avatar className={classes.avatar}>{post.username.substr(0,1)}</Avatar>}          
-          title={post.username}
-      />
+      <Box style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <CardHeader
+            style={{textTransform: 'capitalize'}}
+            avatar={<Avatar className={classes.avatar}>{post.username.substr(0,1)}</Avatar>}          
+            title={post.username}
+        />
+        <Button
+            type="submit"                        
+            onClick={() => onClickDelete(id)}
+            startIcon={showClose && <CloseIcon style={{color:'gray'}}/>}
+        />        
+      </Box>
       <Typography className={classes.bookTitle}>{post.title}</Typography>
-      {/* <Link href="#" onClick={goToBookReview(history)}> */}
+      <Box onClick={() => goToBookReview(history, id)}>
         <CardMedia
             component={"img"}
             className={classes.media}            
             image={post.imageUrl}
             title={post.imageUrl}
         />          
-      {/* </Link> */}
+      </Box>
     </Box>           
   )
 }
