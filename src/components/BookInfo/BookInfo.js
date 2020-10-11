@@ -5,9 +5,7 @@ import { Box, Card, CardContent, CardMedia, Typography }from '@material-ui/core'
 function BookInfo({item}) {
 
   const classes = useStyles();
-
   const { post, id } = item
-  console.log(post)
 
   return (
      <Card key={id} className={classes.root}>        
@@ -41,11 +39,9 @@ const useStyles = makeStyles({
       height: 350,
       "@media(max-width: 800px)" : {
         flexDirection: 'column',
-        alignItems:'center',
-        justifyContent: 'space-evenly',
         width:'80%',
         height: 450,
-        padding: '20px',
+        padding: '30px auto',
       }  
     },
     image: {
@@ -58,9 +54,10 @@ const useStyles = makeStyles({
         "@media(max-width: 800px)" : {
             display: 'flex',
             alignItems: 'center',
-            height: 100,
+            height: 30,
             width: 150,
-            margin: '0px'
+            margin: '0px',
+            padding:0,
         }
     },
     content: {

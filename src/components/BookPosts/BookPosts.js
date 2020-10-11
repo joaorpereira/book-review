@@ -25,7 +25,6 @@ function BookPosts({item}) {
     }
   },[currentUser])
 
-  console.log(!!currentUser)
   const onClickDelete = (id) => {
     db.collection("posts").doc(id).delete()
     db.collection("posts").doc(id).collection("comments").delete()

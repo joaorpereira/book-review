@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Grid, makeStyles, Button } from '@material-ui/core'
-import useAuthPage from '../../hooks/useAuthPage';
 import { PostContext } from '../../services/Post';
 import { useParams } from 'react-router-dom';
 import BookInfo from '../../components/BookInfo/BookInfo';
@@ -8,7 +7,6 @@ import { goToBooksFeed } from '../../routes/Cordinator'
 import { useHistory } from 'react-router-dom';
 
 function BooksReviewFeed() {
-    useAuthPage()
 
     const history = useHistory();
 

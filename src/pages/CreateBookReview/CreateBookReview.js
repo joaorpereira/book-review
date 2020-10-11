@@ -5,17 +5,15 @@ import { AuthContext } from '../../services/Auth';
 import {db, storage} from '../../services/firebase'
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { goToBooksFeed } from '../../routes/Cordinator';
-import useAuthPage from '../../hooks/useAuthPage';
 import { makeStyles, Button, CssBaseline, TextField, Paper, Grid, Typography, LinearProgress } from '@material-ui/core';
 
 function CreateBookReview() {
-  useAuthPage()
-  const initialState = {title: '', content: '', synopsis: ''}
+
   const history = useHistory();
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
 
-  const [form, setForm] = useState(initialState)
+  const [form, setForm] = useState({title: '', content: '', synopsis: ''})
   const [progress, setProgress] = useState(0)
   const [image, setImage] = useState("")
 
@@ -25,9 +23,9 @@ function CreateBookReview() {
   }
 
   const handleImageChange = (e) => {
-      if(e.target.files[0]){
-          setImage(e.target.files[0])
-      }
+    if(e.target.files[0]){
+      setImage(e.target.files[0])
+    }
   }
 
   const handleFileUpload = (e) => {
