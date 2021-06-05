@@ -1,7 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Divider, makeStyles, Typography } from '@material-ui/core'
+import {
+  Box,
+  Divider,
+  makeStyles,
+  Tooltip,
+  Typography,
+} from '@material-ui/core'
 import { db } from '../../services/firebase'
-import { regularColor } from '../../constants/colors'
+import { regularColor, secondaryColor } from '../../constants/colors'
+import { withStyles } from '@material-ui/styles'
+
+const StyledTooltip = withStyles(() => ({
+  arrow: {
+    color: secondaryColor,
+  },
+  tooltip: {
+    backgroundColor: secondaryColor,
+    fontSize: '11px',
+    fontWeight: 600
+  },
+}))(Tooltip)
 
 function BookCard({ item }) {
   const { id } = item
@@ -29,11 +47,19 @@ function BookCard({ item }) {
           {comments.map(comment => {
             return (
               <Box key={comment.text}>
-                <Typography variant='body2' className={classes.comments}>
-                  <strong>{comment.username}</strong>
-                  {': '}
-                  {comment.text}
-                </Typography>
+                <StyledTooltip
+                  arrow
+                  disableFocusListener
+                  disableTouchListener
+                  title={<p style={{ textAlign: 'justify' }}>{comment.text}</p>}
+                >
+                  <Typography variant='body2' className={classes.comments}>
+                    <strong>{comment.username}</strong>
+                    {': '}
+                    {comment.text}
+                  </Typography>
+                </StyledTooltip>
+
                 <Divider variant='middle' />
               </Box>
             )
@@ -69,6 +95,6 @@ const useStyles = makeStyles({
     width: '270px',
     whiteSpace: 'nowrap',
     display: 'inline-block',
-    overflow: 'hidden !important'
+    overflow: 'hidden !important',
   },
 })
