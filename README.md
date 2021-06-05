@@ -52,9 +52,7 @@ The project can be accessed at the link: https://books-reviews.netlify.app
 ---
 #### 💻 FrontEnd
 
-<div align="center">
 ![](book-review.gif)
-</div>
 
 ---
 ### 🛠 Technologies
