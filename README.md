@@ -1,68 +1,137 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+    Book Review
+</h1>
 
-## Available Scripts
+<p align="center">
+  <a href="https://www.linkedin.com/in/joaorpereira/">
+    <img 
+        alt="Made by Joao Paulo" 
+        src="https://img.shields.io/badge/MADE%20BY-Joao%20Paulo-%230077b5?style=flat-square&logo=linkedin">
+  </a>
 
-In the project directory, you can run:
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-%20brightgreen?style=flat-square&logo=">
 
-### `npm start`
+  <a href="https://www.javascript.com/">
+    <img 
+        alt="JavaScript" 
+        src="https://img.shields.io/badge/Stack-JavaScript-%23F7DF1E?style=flat-square&logo=JAVASCRIPT">
+  </a>
+  <a href="#">
+    <img 
+        alt="Firebase" 
+        src="https://img.shields.io/badge/Server-Firebase-%23F7DF1E?style=flat-square&logo=firebase">
+  </a>
+  <a href="#">
+    <img 
+        alt="React" 
+        src="https://img.shields.io/badge/Web-React-%23007ACC?style=flat-square&logo=REACT">
+  </a>
+</p>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<p align="center">
+ <a href="#-about">About</a> •
+ <a href="#-technologies">Technologies</a> • 
+ <a href="#-how-to-download-the-project">How to download the project</a> • 
+ <a href="#-license">License</a> • 
+ <a href="#-developer">Developer</a>
+</p>
 
-### `npm test`
+---
+### 🔖 About
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Ecommerce Project** is a website developed to be a social book community. In this application the user can sign in and sign up, also he can upload a new book review that will be available in the feed. The users can comment the current books in the feed.
 
-### `npm run build`
+A fullstack project developed using Firebase as backend-as-service and the Frontend was created with ReactJS.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project was done as a technical challenge to improve my skills as a **Frontend Developer** and learn to use **ContexAPI** and **Firebase**.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The project can be accessed at the link: https://books-reviews.netlify.app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
+#### 💻 FrontEnd
 
-### `npm run eject`
+<div align="center">
+![](book-review.gif)
+</div>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
+### 🛠 Technologies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The following technologies/tools were used:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [JavaScript](https://www.javascript.com/);
+- [ECS6+](http://www.ecma-international.org/ecma-262/6.0/);
+- [ReactJs](https://reactjs.org/);
+- [Material UI](https://material-ui.com/pt/);
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS);
+- [Styled-Components](https://styled-components.com/);
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML);
+- [Axios](https://www.npmjs.com/package/axios);
+- [Firebase](https://firebase.google.com/?hl=pt);
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
+### 📎 How to download the project
 
-## Learn More
+##### 👉 Tools needed:
+- Editor:
+- [Vscode](https://code.visualstudio.com/) was used in this project; 
+- [Node.Js](https://nodejs.org/en/) - Installed on your machine;
+- [Git](https://git-scm.com/downloads) - Installed on your machine;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+##### 👉 Install dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
 
-### Code Splitting
+#->In the terminal:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+# Clone repository:
+$ git clone https://github.com/joaorpereira/book-review.git
 
-### Analyzing the Bundle Size
+# Install dependencies:
+$ npm install
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+# Start the project
+$ npm start
 
-### Making a Progressive Web App
+# After loading the project it will automatically open a tab in the default browser.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```
+---
+### 📜 License
 
-### Advanced Configuration
+This project is under the MIT license. See the [LICENSE](LICENSE) file for more details.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+---
 
-### Deployment
+### 👨‍💻 Developer
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+<p align="center">
+    <a href="https://blog.rocketseat.com.br/author/thiago/">
+        <img 
+            style="border-radius: 50%;" 
+            src="https://avatars.githubusercontent.com/u/58570645?s=120&v=4" 
+            width="120px;" 
+            alt="Foto">
+        <br/>
+        <sub><b>Joao Paulo  🚀</b></sub>
+    </a>
+</p>
+</br>
+<h6 align="center">
+    Developed by Joao Paulo.
+</h6>
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<p align="center">
+    <a href="https://www.linkedin.com/in/joaorpereira">
+    <img 
+        alt="Linkedin Joao Paulo Rodrigues" 
+        src="https://img.shields.io/badge/-Joao%20Paulo-%230077b5?style=flat-square&logo=linkedin">
+    </a>
+    <a href="mailto:rpjoaopaulo28@gmail.com">
+        <img 
+            alt="gmail Joao Paulo" 
+            src="https://img.shields.io/badge/-Gmail-%23c14438?style=flat-square&logo=gmail&logoColor=white">
+    </a>
+</p>
