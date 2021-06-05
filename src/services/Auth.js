@@ -1,36 +1,34 @@
-import { Box, CircularProgress } from "@material-ui/core";
-import React, { useEffect, useState, createContext } from "react";
-import {app} from "./firebase.js";
+import React, { useEffect, useState, createContext } from 'react'
+import Loading from '../components/Loading/index.js'
+import { app } from './firebase.js'
 
-export const AuthContext = createContext();
+export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [pending, setPending] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null)
+  const [pending, setPending] = useState(true)
 
   useEffect(() => {
-
-    async function getAuth() { 
+    async function getAuth() {
       try {
-        await app.auth().onAuthStateChanged((user) => {
+        await app.auth().onAuthStateChanged(user => {
           setCurrentUser(user)
-          })
-          setPending(false)
+        })
+        setPending(false)
       } catch (error) {
-        alert("Ocorreu um erro ao tentar a autentificação");
+        alert('Ocorreu um erro ao tentar a autentificação')
       }
     }
     getAuth()
+  }, [])
 
-  }, []);
-
-  if(pending){
-    return  <Box style={{display: 'flex', justifyContent: 'center', marginTop: '150px'}}><CircularProgress/></Box>
+  if (pending) {
+    return <Loading />
   }
 
   return (
     <AuthContext.Provider value={{ currentUser }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
