@@ -41,7 +41,7 @@
 ---
 ### 🔖 About
 
-**Ecommerce Project** is a website developed to be a social book community. In this application the user can sign in and sign up, also he can upload a new book review that will be available in the feed. The users can comment the current books in the feed.
+**Book Review** is a website developed to be a social book community. In this application the user can sign in and sign up, also he can upload a new book review that will be available in the feed. The users can comment the current books in the feed.
 
 A fullstack project developed using Firebase as backend-as-service and the Frontend was created with ReactJS.
 
